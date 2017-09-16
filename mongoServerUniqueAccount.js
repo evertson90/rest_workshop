@@ -20,11 +20,26 @@ var registerUser = function(registrationInfo, successCallback, errorCallback) {
 			return; 
 		}
 
-	  var collection = db.collection('Account');
+		var collection = db.collection('Account');
 
-	  collection.insert(registrationInfo);
-	  successCallback(JSON.stringify(registrationInfo));
-	  db.close();
+		//check if account already exists
+
+		var accountFound;
+		collection.findOne({"username": registrationInfo.username}, function(err, result) {
+			if (err) {
+				errorCallback(err);  
+				return; 
+			};
+
+			if(result) {
+				errorCallback("Account already exists");
+				return;
+			}
+
+			collection.insert(registrationInfo);
+			successCallback(JSON.stringify(registrationInfo));
+			db.close();
+	  	});
 	});
 }
 
@@ -34,9 +49,11 @@ app.get('/', function (req, res) {
 })
 
 app.post('/register', function(req, res) {	
-	registerUser(req.body, function(result) {
-		res.send("User saved: " + result)
-	}, function(err) {
+	registerUser(req.body, 
+	function(result) {
+		res.send("User saved: " + result);
+	}, 
+	function(err) {
 		res.send("Error saving user : " + err);
 	})
 })
