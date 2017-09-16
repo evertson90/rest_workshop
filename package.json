@@ -1,0 +1,13 @@
+{
+  "name": "rest-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": " Evertson Croes",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31"
+  }
+}
