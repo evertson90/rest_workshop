@@ -68,11 +68,7 @@ var updateUser = function(userInfo, userId, successCallback, errorCallback) {
 }
 
 
-var deleteUser = function(userInfo, userId, successCallback, errorCallback) {
-  if (!userInfo) {
-    errorCallback("No user info supplied");
-    return;
-  }
+var deleteUser = function(userId, successCallback, errorCallback) {
   MongoClient.connect("mongodb://localhost:27017/testDB", function(err, db) {
     if (err) {
       errorCallback(err);
@@ -127,7 +123,7 @@ app.put('/users/:user_id', function(req, res) {
 
 
 app.delete('/users/:user_id', function(req, res) {
-  deleteUser(req.body, req.params.user_id, function(result) {
+  deleteUser(req.params.user_id, function(result) {
     res.json({
       message: 'User deleted!'
     });
