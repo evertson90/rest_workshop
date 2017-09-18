@@ -92,7 +92,7 @@ var deleteUser = function(userId, successCallback, errorCallback) {
 app.get('/', function(req, res) {
   res.send('Hello World');
 })
-
+// Get request to get all users
 app.get('/users', function(req, res) {
   getUsers(function(result) {
     res.json({users: result})
@@ -101,6 +101,7 @@ app.get('/users', function(req, res) {
   })
 })
 
+// Post request to register a user
 app.post('/register', function(req, res) {
   registerUser(req.body, function(result) {
     res.send("User saved: " + result)
@@ -109,6 +110,7 @@ app.post('/register', function(req, res) {
   })
 });
 
+//Put request with user id as URL parameter
 app.put('/users/:user_id', function(req, res) {
   updateUser(req.body, req.params.user_id,
     function(result) {
@@ -121,7 +123,7 @@ app.put('/users/:user_id', function(req, res) {
     });
 });
 
-
+//Delete request with user id as URL parameter
 app.delete('/users/:user_id', function(req, res) {
   deleteUser(req.params.user_id, function(result) {
     res.json({
