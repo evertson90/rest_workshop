@@ -9,15 +9,15 @@ app.use(bodyParser.json());
 
 //Helper functions
 var registerUser = function(registrationInfo, successCallback, errorCallback) {
-	if(!registrationInfo) { 
+	if(!registrationInfo) {
 		errorCallback("No registration info supplied");
 		return;
 	}
 
 	MongoClient.connect("mongodb://localhost:27017/testDB", function(err, db) {
-		if(err) { 
-			errorCallback(err);  
-			return; 
+		if(err) {
+			errorCallback(err);
+			return;
 		}
 
 	  var collection = db.collection('Account');
@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
    res.send('Hello World');
 })
 
-app.post('/register', function(req, res) {	
+app.post('/register', function(req, res) {
 	registerUser(req.body, function(result) {
 		res.send("User saved: " + result)
 	}, function(err) {

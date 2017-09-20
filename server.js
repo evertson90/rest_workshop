@@ -3,7 +3,6 @@ var express = require('express');
 
 //Initialization
 var app = express();
-app.use(bodyParser.json());
 
 //Routing
 app.get('/', function (req, res) {
